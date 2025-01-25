@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.3.2/dist/face-api.min.js"></script>
+    <title>Scanning...</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0d0f12;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('/static/images/emotion.jpg') no-repeat center center fixed;
+            background-size: cover;            
+            color: rgb(10, 10, 10);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 20px;
+            color: #020a07;
+            text-shadow: 0 0 15px rgba(222, 222, 41, 0.7), 0 0 30px rgba(0, 255, 153, 0.5);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 15px rgba(0, 255, 153, 0.7), 0 0 30px rgba(0, 255, 153, 0.5); }
+            100% { text-shadow: 0 0 25px rgba(0, 255, 153, 0.9), 0 0 50px rgba(0, 255, 153, 0.7); }
+        }
+
+        .scan-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 255, 153, 0.7);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        video, canvas {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #00ff99;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -25px;
+            margin-top: -25px;
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: #defa41;
+            margin-top: 20px;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .instructions {
+            margin-top: 20px;
+            color: #cce7e1;
+            font-size: 1rem;
+        }
+    </style>
+    <script>
+        let video;
+        let canvas;
+
+        function speakText(text) {
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "en-US";
+            speech.rate = 1; // Speed of speech (default is 1)
+            speech.pitch = 1; // Pitch of voice (default is 1)
+            window.speechSynthesis.speak(speech);
+        }
+
+        async function startScan() {
+            video = document.querySelector("#video");
+            canvas = document.querySelector("#canvas");
+            const context = canvas.getContext("2d");
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: { ideal: 1280 }, height: { ideal: 720 } }
+                });
+                video.srcObject = stream;
+                video.play();
+
+                // Show the spinner animation while scanning
+                document.querySelector(".spinner").style.display = "block";
+
+                // Voice instructions
+                speakText("Please wait while we process your scan.");
+                speakText("Ensure good lighting and position the target steadily for better clarity.");
+
+                // Simulate scanning after 3 seconds
+                setTimeout(() => {
+                    // Resize canvas to match video stream resolution
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+
+                    // Capture the image from the video feed
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = canvas.toDataURL("image/jpeg");
+
+                    // Stop the video stream
+                    stream.getTracks().forEach(track => track.stop());
+
+                    // Hide spinner after capturing the image
+                    document.querySelector(".spinner").style.display = "none";
+
+                    // Send the image data to the backend
+                    fetch("/process_scan", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ image: imageData })
+                    }).then(() => {
+                        window.location.href = "/result";
+                    });
+                }, 3000);
+            } catch (error) {
+                alert("Unable to access the camera. Please check permissions.");
+            }
+        }
+
+        window.onload = startScan;
+    </script>
+</head>
+<body>
+    <div>
+        <h1>Your mind is being read...</h1>
+        <div class="scan-container">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div class="spinner"></div>
+        </div>
+        <p class="loading-text">Please wait while we process your scan...</p>
+        <p class="instructions">Ensure good lighting and position the target steadily for better clarity.</p>
+    </div>
+</body>
+</html> 

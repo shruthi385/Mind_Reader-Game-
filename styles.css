@@ -1,0 +1,190 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: url('/static/images/black.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+#title {
+    font-size: 4rem;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.left-side {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.left-side img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+header {
+    text-shadow: 2px 2px 5px #000;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    border-bottom: 1px solid #444;
+    padding: 10px 15px;
+}
+
+aside ul li a:hover {
+    color: #ff00ff;
+    text-decoration: underline;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+    }
+    to {
+        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+    }
+}
+
+.blurred {
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+/* Countdown Overlay */
+.countdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Countdown Circle */
+.countdown-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid rgb(239, 82, 234);
+    font-size: 6rem;
+    text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white;
+    animation: bloomEffect 1s ease-in-out infinite;
+}
+
+/* Bloom Animation */
+@keyframes bloomEffect {
+    0%, 100% {
+        text-shadow: 0 0 20px rgb(39, 228, 118), 0 0 30px rgb(20, 116, 207), 0 0 40px rgb(166, 15, 197);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 50px rgb(24, 153, 209), 0 0 70px rgb(189, 18, 198), 0 0 90px white;
+        transform: scale(1.2);
+    }
+}
+
+/* Get Ready Message Styles */
+.ready-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    #title {
+        font-size: 3.5rem;
+    }
+    .countdown-circle {
+        width: 250px;
+        height: 250px;
+        font-size: 5rem;
+    }
+    .ready-message {
+        padding: 15px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    #title {
+        font-size: 3rem;
+    }
+    .countdown-circle {
+        width: 200px;
+        height: 200px;
+        font-size: 4rem;
+    }
+    .ready-message {
+        padding: 10px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 14px;
+    }
+    #title {
+        font-size: 2.5rem;
+    }
+    .countdown-circle {
+        width: 150px;
+        height: 150px;
+        font-size: 3rem;
+    }
+    .ready-message {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #title {
+        font-size: 2rem;
+    }
+    .countdown-circle {
+        width: 120px;
+        height: 120px;
+        font-size: 2.5rem;
+    }
+    .ready-message {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+}

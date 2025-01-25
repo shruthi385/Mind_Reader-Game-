@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Reader (mind sphere)</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+
+    <div id="main-content" class="container-fluid d-flex flex-column min-vh-100">
+        <div class="row">
+            <!-- Left Section: Image Carousel -->
+            <div class="col-lg-6 col-md-6 col-sm-12 p-0">
+                <div class="left-side d-flex justify-content-center align-items-center position-relative" style="height: 109%; background:url('/static/images/black.jpg'); background-size: cover; background-position: center;">
+                    <div class="game-container">
+                        <div class="circle-container" style="margin-inline-start: 40px;">
+                            <img src="/static/images/mind.png" alt="Center Image" class="center-image">
+                            <img src="/static/images/mind2.png" alt="Image 1" class="rotating-image img1">
+                            <img src="/static/images/mind3.png" alt="Image 2" class="rotating-image img2">
+                            <img src="/static/images/mind4.png" alt="Image 3" class="rotating-image img3">
+                            <img src="/static/images/mind5.png" alt="Image 4" class="rotating-image img4">
+                            <img src="/static/images/mind6.png" alt="Image 5" class="rotating-image img5">
+                            <img src="/static/images/mind3.png" alt="Image 6" class="rotating-image img6">
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            
+            <!-- Right Section: Main Content -->
+            <div class="col-lg-6 col-md-6 col-sm-12 p-4 text-white">
+                <header class="text-center py-5">
+                    <h1 class="display-3" id="title">Mind Sphere 🔮</h1>
+                    <h1 class="display-3" id="title">A Mind Reader Game!</h1> <br>
+                    <p class="lead" style="font-size: 40px;">Let us read your mind!😉</p>
+                    <img src="/static/images/magic_man.png" class="magic_man" alt="img">
+                    <form id="username-form" method="POST" action="javascript:void(0);">
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        <br><button class="btn btn-primary btn-lg mt-4" id="submit-start-btn" style="font-size: 25px; box-shadow: 0 0 10px white;"onclick="submitAndStartGame()">
+                            👉 Submit & Start Game
+                        </button>
+                    </form>
+                </header>
+            </div>
+        </div>
+    </div>
+<!-- Countdown Music -->
+<audio id="countdown-music">
+    <source src="/static/images/countdown.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+    <!-- Countdown Overlay -->
+    <div id="countdown-overlay" class="countdown-overlay d-none">
+        <div class="countdown-circle" id="countdown-number">3</div>
+    </div>
+<br> <br> <br> 
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p style="font-size: 25px;">&copy; 2025 Mind Sphere. created by shruthilaya </p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    <style>
+          /* Container for Forms */
+          .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        /* Input Fields */
+        input[type="text"], textarea, select {
+            width: 50%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #374ef9;
+            box-shadow: 0 0 10px white;
+            font-size: 30px;
+            
+        }
+        .magic_man {
+    width: 400px;
+    height: 500px;
+    animation: zoomInOut 5s ease-in-out infinite;
+}
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1); /* Initial size */
+    }
+    50% {
+        transform: scale(1.1); /* Zoom in */
+    }
+    100% {
+        transform: scale(1); /* Zoom out back to original size */
+    }
+}
+
+        /* Input Focus Effect */
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border: 1px solid #009ffd;
+            box-shadow: 0 0 5px #009ffd;
+        }
+
+        /* Buttons */
+        button {
+            background: #009ffd;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 20px;
+            font-weight:bolder;
+        }
+
+        button:hover {
+            background: #006bbd;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+    /* Parent Container */
+        /* Circular container for rotation */
+/* Container for the game */
+/* Container for the game */
+/* Container for the game */
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* Circular container for rotation */
+.circle-container {
+    position: relative;
+    width: 320px; /* Size of the circle */
+    height: 320px; /* Size of the circle */
+    margin: auto;
+    animation: rotate-circle 15s linear infinite; /* Circular rotation for the entire container */
+}
+
+/* Center image stays fixed */
+.center-image {
+    position: absolute;
+    width: 80px;  /* Adjust size */
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 2; /* Keeps the center image above other rotating images */
+}
+
+/* Rotating images */
+.rotating-image {
+    position: absolute;
+    width: 80px;  /* Adjust image size */
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 20px white;
+}
+
+/* Position images evenly around the circle with a gap */
+.img1 { transform: rotate(0deg) translate(400px) rotate(0deg); }
+.img2 { transform: rotate(60deg) translate(400px) rotate(-60deg); }
+.img3 { transform: rotate(120deg) translate(400px) rotate(-120deg); }
+.img4 { transform: rotate(180deg) translate(400px) rotate(-180deg); }
+.img5 { transform: rotate(240deg) translate(400px) rotate(-240deg); }
+.img6 { transform: rotate(300deg) translate(400px) rotate(-300deg); }
+
+
+
+/* Circular rotation for the entire container */
+@keyframes rotate-circle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+    </style>
+
+    <script>
+        // Function to handle submitting the username and starting the game
+        function submitAndStartGame() {
+            const playerName = document.getElementById('name').value;
+
+            if (!playerName) {
+                alert("Please enter your name!");
+                return;
+            }
+
+            // Submit the name via AJAX
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ url_for('store_name') }}", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Proceed to start the countdown after name is stored
+                    startCountdown(playerName);
+                } else {
+                    alert("Error storing name, please try again.");
+                }
+            };
+            xhr.send("name=" + playerName);
+        }
+
+        // Function to start the countdown and play countdown music
+        function startCountdown(playerName) {
+            const mainContent = document.getElementById("main-content");
+            const countdownOverlay = document.getElementById("countdown-overlay");
+            const countdownNumber = document.getElementById("countdown-number");
+
+            // Blur the background
+            mainContent.classList.add("blurred");
+
+            // Show the countdown overlay
+            countdownOverlay.classList.remove("d-none");
+
+            let countdown = 3; // Starting number for countdown
+            countdownNumber.textContent = countdown;
+
+            // Play countdown music
+            const countdownAudio = new Audio("/static/images/countdown.mp3");
+            countdownAudio.play();
+
+            // Start countdown
+            const interval = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    countdownNumber.textContent = countdown; // Update the number
+                } else if (countdown === 0) {
+                    countdownNumber.textContent = "Go👉"; // Show "Go"
+                } else {
+                    clearInterval(interval); // Stop the interval
+                    countdownOverlay.classList.add("d-none"); // Hide countdown overlay
+                    countdownAudio.pause(); // Stop the countdown music
+                    countdownAudio.currentTime = 0; // Reset the countdown audio
+                    redirectToGame(playerName); // Redirect to the game page with the player name
+                }
+            }, 1000); // Update every second
+        }
+
+        // Function to redirect to the game page with player name
+        function redirectToGame(playerName) {
+            const gameUrl = "{{ url_for('games') }}";
+            window.location.href = gameUrl + "?player_name=" + playerName; // Redirect to game with player name
+        }
+    </script>
+</body>
+</html>

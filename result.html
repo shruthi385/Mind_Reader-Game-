@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Analysis Result</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #00ff99;
+            text-shadow: 0 0 20px rgba(0, 255, 153, 0.8), 0 0 40px rgba(0, 255, 153, 0.6);
+            margin-top: 20px;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 153, 0.8);
+            display: inline-block;
+            width: 90%;
+            max-width: 700px;
+            transition: transform 0.3s ease;
+        }
+
+        .result-container:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 0 25px rgba(0, 255, 153, 0.8);
+            object-fit: cover;
+            border: 3px solid rgba(0, 255, 153, 0.5);
+        }
+
+        p {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            margin-top: 20px;
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+        }
+
+        button {
+            background-color: #00ff99;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #00cc7a;
+            transform: scale(1.1);
+        }
+        
+    </style>
+</head>
+<body id="body">
+    <div>
+        <h1>Emotion Analysis Result</h1>
+        <div class="result-container">
+            <p><strong>Detected Emotion:</strong> <span id="emotion">{{ emotion }}</span></p>
+            <p><strong>Message:</strong> <span id="message">{{ message }}</span></p>
+            {% if image_path %}
+                <img src="{{ image_path }}" alt="Captured Image">
+            {% endif %}
+            <br><br>
+            <a href="/scan"><button>Try Again</button></a> <br>
+            <a href="/games"><button>Game page</button></a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const celebrationSound = new Audio('/static/images/bells.mp3');
+        const emotion = "{{ emotion }}" || "Happy";
+        const message = "{{ message }}" || "You look great!";
+        const emotionBackgrounds = {
+            Happy: "linear-gradient(to right, #fbc2eb, #a6c1ee)",
+            Sad: "linear-gradient(to right, #373b44, #4286f4)",
+            Angry: "linear-gradient(to right, #ff4e50, #f9d423)",
+            Surprised: "linear-gradient(to right, #f3ec78, #af4261)",
+            Neutral: "linear-gradient(to right, #bdc3c7, #2c3e50)"
+        };
+
+        const body = document.getElementById("body");
+        body.style.background = emotionBackgrounds[emotion] || "#0d0f12";
+
+        function triggerConfetti() {
+            const duration = 2 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    startVelocity: 20,
+                    spread: 180,
+                    origin: { x: Math.random(), y: Math.random() - 0.2 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+
+            setTimeout(() => confetti({ particleCount: 50, spread: 40, origin: { y: 0.4 } }), 500);
+        }
+
+        function speakMessage() {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = `Hey! Detected emotion is ${emotion}. ${message}`;
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        window.onload = () => {
+            celebrationSound.play();
+            triggerConfetti();
+            speakMessage();
+        };
+    </script>
+</body>
+</html>

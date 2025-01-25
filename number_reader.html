@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>number_reader</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('/static/images/bgimg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: rgb(244, 244, 244);
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 3.5rem;
+        }
+
+        p {
+            font-size: 1.7rem;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 50px auto;
+        }
+
+        /* Card Styling */
+        .card {
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            width: 310px;
+            height: 310px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .number-box {
+            border: 2px solid gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: black;
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Modal Styling */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease;
+            color:black;
+            font-size: 25px;
+        }
+
+        .modal.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .close-btn {
+            background-color: deeppink;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .close-btn:hover {
+            background-color: rgb(218, 62, 205);
+            
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+        margin-top: 20px;
+        font-size: 3.5rem;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+        animation: glowHeading 1.5s infinite alternate;
+    }
+
+    @keyframes glowHeading {
+        0% {
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+        }
+        100% {
+            text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+        }
+    }
+
+    /* Glowing effect for card titles */
+    h3 {
+        font-size: 45px;
+        color: rgb(255, 255, 255);
+        text-shadow: 0 0 8px #f4f5f5, 0 0 16px #f3f4f4, 0 0 24px #f2f4f4;
+        animation: glowCardTitle 1.5s infinite alternate;
+    }
+
+    @keyframes glowCardTitle {
+        0% {
+            text-shadow: 0 0 8px #edf1f1, 0 0 16px #f2f3f3, 0 0 24px #f2f4f4;
+        }
+        100% {
+            text-shadow: 0 0 16px #0a0a0a, 0 0 24px #f1f4f4, 0 0 32px #181818;
+        }
+    }
+/* Light Container Styling */
+        .light-container {
+            display: inline-block;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.6);
+
+            padding: 20px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 0, 255, 0.6);
+            animation: glowEffect 2s infinite alternate;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="light-container">
+        <h1>Mind Reader Game</h1>
+        <h3>Choose the cards that contain your number and click "Reveal My Number"!</h3>
+    </div>
+    <div class="container">
+        <!-- Cards for number selection -->
+        <div>
+            <h1>Card 1</h1>
+            <div id="card1" class="card"></div>
+            <button class="button" onclick="toggleSelection(0)">Select Card 1</button>
+        </div>
+        <div>
+            <h1>Card 2</h1>
+            <div id="card2" class="card"></div>
+            <button class="button" onclick="toggleSelection(1)">Select Card 2</button>
+        </div>
+        <div>
+            <h1>Card 3</h1>
+            <div id="card3" class="card"></div>
+            <button class="button" onclick="toggleSelection(2)">Select Card 3</button>
+        </div>
+        <div>
+            <h1>Card 4</h1>
+            <div id="card4" class="card"></div>
+            <button class="button" onclick="toggleSelection(3)">Select Card 4</button>
+        </div>
+        <div>
+            <h1>Card 5</h1>
+            <div id="card5" class="card"></div>
+            <button class="button" onclick="toggleSelection(4)">Select Card 5</button>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 30px;">
+        <button class="button" onclick="revealNumber()">Reveal My Number</button> <br> <br> <br>
+        <a href="/games" class="button" style="color: white; font-size: 20px;">👈Back</a>
+    </div>
+
+    <!-- Modal for showing the result -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <p id="resultText" style="font-size: 1.8rem; font-weight: bold;"></p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Card data
+        const cards = [
+            { id: "card1", values: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31], selected: false },
+            { id: "card2", values: [2, 3, 6, 7, 10, 11, 14, 15, 18, 19, 22, 23, 26, 27, 30, 31], selected: false },
+            { id: "card3", values: [4, 5, 6, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31], selected: false },
+            { id: "card4", values: [8, 9, 10, 11, 12, 13, 14, 15, 24, 25, 26, 27, 28, 29, 30, 31], selected: false },
+            { id: "card5", values: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], selected: false },
+        ];
+
+        // Render numbers dynamically on cards
+        cards.forEach(card => {
+            const container = document.getElementById(card.id);
+            card.values.forEach(num => {
+                const numBox = document.createElement('div');
+                numBox.textContent = num;
+                numBox.className = 'number-box';
+                container.appendChild(numBox);
+            });
+        });
+
+        // Toggle card selection
+        function toggleSelection(cardIndex) {
+            cards[cardIndex].selected = !cards[cardIndex].selected;
+            const button = document.querySelectorAll(".button")[cardIndex];
+            // Change button text and color based on selection state
+            if (cards[cardIndex].selected) {
+                button.textContent = `Deselect Card ${cardIndex + 1}`;
+                button.style.backgroundColor = "green";
+            } else {
+                button.textContent = `Select Card ${cardIndex + 1}`;
+            button.style.backgroundColor = "#007bff";
+        }
+    }
+
+    // Reveal the guessed number
+    function revealNumber() {
+        let result = 0;
+        cards.forEach((card, index) => {
+            if (card.selected) {
+                result += card.values[0]; // Add the least significant bit of each card
+            }
+        });
+
+        const modal = document.getElementById("resultModal");
+        const resultText = document.getElementById("resultText");
+        resultText.textContent = `Your chosen number is: ${result}`;
+        modal.classList.add("show");
+    }
+
+    // Close the modal
+    function closeModal() {
+        const modal = document.getElementById("resultModal");
+        modal.classList.remove("show");
+    }
+    </script>
+</body>
+</html>
+
+                

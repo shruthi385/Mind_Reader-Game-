@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Mind reader without flash"/>
+    <meta name="robots" content="index, follow, archive"/>
+    <meta name="thumbnail" content="{{ url_for('static', filename='images/thumbnail.png') }}"/>
+    <meta name="og:title" content="The JavaScript mind reader (no flash/swf)"/>
+    <meta name="og:type" content="website"/>
+    <meta name="og:url" content="https://themindreader.netlify.app/"/>
+    <meta property="og:image" content="{{ url_for('static', filename='images/thumbnail.png') }}"/>
+    <meta name="og:description" content="Remake of The Original Flash Mind Reader - requires NO FLASH!"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}" />
+    <script src="{{ url_for('static', filename='lang/english.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='lang/spanish.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='lang/hungarian.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='lang/russian.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+    <title>magic-ball</title>
+  </head>
+  <body style="background:linear-gradient(145deg,rgb(7, 7, 7),rgb(10, 10, 10));">
+    <center><h1 class="glowing-text">WELCOME TO MAGIC BALL MIND READER!🔮</h1> <a href="/games" class="back-home-btn" style="color: white; font-size: 20px;">Back</a></center>
+
+    <main style="background: url('/static/images/bg2.jpg') center center no-repeat;
+    background-size: cover;">
+      <div class="flag">
+        <button class="lang-button button-english active">💫</button>
+        <button class="lang-button button-spanish">🪄</button>
+        <button class="lang-button button-hungarian">🤩</button>
+        <button class="lang-button button-russian">😉</button>
+      </div>
+      <section class="glass">
+        <div class="grid-container">
+          <div class="column-left">
+            <div class="row1">
+              <div class="title" style="color: rgb(250, 248, 247); font-size: 40px;"><p>The NOT flash mind reader</p></div> <br>
+            </div>
+            <div class="row3">
+              <div class="title" style="color: rgb(253, 252, 252); font-size: 30px;">
+                <p>
+                  Choose any two-digit number, add together both digits and then
+                  subtract the total from your original number.
+                </p>
+
+                <p class="stand-out-line">
+                  For example: 42 (4 + 2 = 6) so 42 - 6 = 36
+                </p>
+<br>
+                <p>
+                  When you have the final number look it up on the chart and
+                  find the relevant animal. Concentrate on the animal and when
+                  you have it clearly in your mind click on the crystal ball and
+                  it will show you the animal you are thinking of.
+                </p>
+              </div>
+            </div>
+
+            <button class="mg-b" id="showMagicBallBtn">SHOW THE MAGIC BALL</button>
+<center>
+      <div class="row2" style="display: none;" id="magicBallContainer">
+      <div class="magic-ball"></div>
+      </div>
+    </center>
+                <!-- <div class="column-right"></div> -->
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <div class="column-right"></div>
+    </main>
+   <script>
+    // Get the magic ball button and magic ball container
+    var magicBallButton = document.getElementById("showMagicBallBtn");
+    var magicBallContainer = document.getElementById("magicBallContainer");
+
+// When the user clicks the button, show the magic ball
+  magicBallButton.onclick = function() {
+  magicBallContainer.style.display = "block"; // Show the magic ball container
+  magicBallButton.style.display = "none"; // Hide the button after clicking
+}
+
+   </script>
+   
+  </body>
+</html>

@@ -1,0 +1,460 @@
+@media only screen and (max-width: 600px) {
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    main {
+      min-height: 100vh;
+      min-width: 360px;
+      background: linear-gradient(to right top, #f359f3, #6ccaeb);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Ubuntu', sans-serif;
+    }
+    
+    .glass {
+      width: 95%;
+      background: linear-gradient(
+        to right bottom,
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.3)
+      );
+      border-radius: 2rem;
+      z-index: 2;
+      backdrop-filter: blur(0.5rem);
+      border: 1.4px solid whitesmoke;
+    }
+    .circle1, .circle2 {
+        background: white;
+        background: linear-gradient(
+        to right bottom,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.05)
+      );
+      border-radius: 50%;
+      height: 12rem;
+      width: 12rem;
+      position: absolute;
+      z-index: 1;
+    }
+    .circle1 {
+        top: 5%;
+        right: 30%;
+    }
+    .circle2 {
+        bottom: 5%;
+        left: 10%;
+    }
+    .title {
+        font-weight: 600;
+        margin: 1em 0;
+    }
+    
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+    }
+    
+    .column-left {
+        display: grid;
+        grid-template-rows: auto auto auto;
+        text-align: justify;
+        margin-right: 10px;
+        color: #565557;
+    }
+    .column-right {
+        background-color: rgb(151 169 184 / 25%);
+        border: 2px solid rgb(233, 21, 241);
+        border-radius: 15px;
+        padding: 5px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: repeat(5, auto);
+        grid-template-rows: repeat(20, auto);
+        color: #070707;
+        width: 100%;
+    }
+    .row1 {
+        font-size: 1.8em;
+        text-align: center;
+        order: 1;
+    }
+    .row2 {
+        display: flex;
+        justify-content: center;
+        order: 4;
+    }
+    .row3 {
+        font-size: 1em;
+        text-align: justify;
+        order: 2;
+    }
+    .row4 {
+        display: flex;
+        justify-content: center;
+        order: 3;
+        width: 100%;
+    }
+    .magic-ball {
+        margin: 10px 0;
+        width: 18em;
+        height: 18em;
+        background: radial-gradient(circle at 80px 80px, #62f4f8, #000);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        
+    }
+    
+    .show-symbol {
+        font-size: 10em;
+        padding-bottom: 0.2em;
+        transition: opacity 6s;
+        will-change: opacity;
+        font-weight: bold;
+    }
+    .show-symbol.faded-out {
+        opacity: 0;
+    }
+    .restart-message {
+        font-size: 1.6em;
+        text-align: center;
+        padding-top: 3%;
+        transition: opacity 3s;
+        will-change: opacity;
+    }
+    .restart-message.faded-out {
+        opacity: 0;
+    }
+    .restart-button {
+        margin: 10px auto;
+        font-family: "Arial Black", Gadget, sans-serif;
+        font-size: 20px;
+        padding: 15px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: #FFF;
+        box-shadow: 0 0 20px #eee;
+        border-radius: 10px;
+        width: 200px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        cursor: pointer;
+        display: inline-block;
+        border-radius: 25px;
+        transition: opacity 3s;
+        will-change: opacity;
+    }
+    .restart-button.faded-out {
+        opacity: 0;
+    }
+    .restart-button:hover{
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        margin: 10px auto;
+    }
+    .restart-button {
+        background-image: linear-gradient(to right, #2BC0E4 0%, #e03dd8 51%, #6ccbe8 100%);
+    }
+    .restart-button:hover {
+        background-position: right center; 
+    }
+    .stand-out-line {
+        padding: 5px 0;
+        text-align: center;
+    }
+    .flag {
+        display: flex;
+        flex-direction: row;
+    }
+    .lang-button {
+        background-color: #0e8de2;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;
+        color: white;
+        font-size: 1.1em;
+        font-weight: 700;
+        border: 2px solid #ffffffcc;
+        margin-top: 4px;
+        z-index: 2;
+    }
+    .active {
+        background-color: #4062ebe3;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;
+        color: white;
+        font-size: 1.1em;
+        font-weight: 700;
+        border: 2px solid #ffffffcc;
+        margin-top: 4px;
+    }
+    .cards {
+        text-align: center;
+    }
+  }
+
+  @media only screen and (min-width: 601px) {
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    main {
+      min-height: 100vh;
+      min-width: 800px;
+      background: linear-gradient(to right top, #ce1ad7, #13a4c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Ubuntu', sans-serif;
+    }
+    .glass {
+      min-height: 50vh;
+      max-width: 800px;
+      min-width: 700px;
+      width: 90%;
+      background: linear-gradient(
+        to right bottom,
+        rgba(8, 8, 8, 0.7),
+        rgba(5, 5, 5, 0.7)
+      );
+      border-radius: 2rem;
+      z-index: 2;
+      backdrop-filter: blur(0.5rem);
+      border: 5px solid whitesmoke;
+      box-shadow: 0 0 10px white;
+      color: black;
+    }
+    .circle1, .circle2 {
+        background: white;
+        background: linear-gradient(
+        to right bottom,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.05)
+      );
+      border-radius: 50%;
+      height: 12rem;
+      width: 12rem;
+      position: absolute;
+      z-index: 1;
+    }
+    .circle1 {
+        top: 5%;
+        right: 10%;
+    }
+    .circle2 {
+        bottom: 5%;
+        left: 10%;
+    }
+    .grid-container {
+        display: flex;
+        padding: 1em;
+        margin: 1.4em;
+    }
+    .column-left {
+        display: grid;
+        grid-template-rows: auto auto auto;
+        text-align: justify;
+        margin-right: 10px;
+        color: #080808;
+        
+    }
+    .column-right {
+        background-color: rgba(236, 249, 88, 0.662);
+        border: 6px solid seashell;
+        border-radius: 15px;
+        padding: 5px;
+        padding-left: 20px;
+        margin-left: 20px;
+        display:grid;
+        grid-auto-flow: column;
+        grid-template-columns: repeat(20, auto);
+        grid-template-rows: repeat(5, auto);
+        color: #101010;
+        min-width: 460px;
+    
+        /* Adjustments for larger content */
+        font-size: 2rem; /* Increase font size */
+        line-height: 2.5; /* Spacing between lines for readability */
+        font-weight: bold; /* Make the content bold */
+        text-align: center; /* Center-align text within the grid */
+    }
+    
+    .row1 {
+        font-size: 1.8em;
+        text-align: center;
+    }
+    .row2 {
+        display: flex;
+        justify-content: center;
+    }
+    .row3 {
+        font-size: 1em;
+        text-align: justify;
+    }
+    .magic-ball {
+        margin: 10px 0;
+        width: 28em;
+        height: 28em;
+        border-radius: 50%;
+        background: url('/static/images/magicball.png') no-repeat center center;
+        background-size:130%; /* Ensures the image covers the entire circle */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 0 20px white;
+    }
+    
+    .show-symbol {
+        font-size: 10em;
+        padding-bottom: 0.2em;
+        transition: opacity 6s;
+        will-change: opacity;
+    }
+    .show-symbol.faded-out {
+        opacity: 0;
+    }
+    .restart-message {
+        background: url('/static/images/believe.jpeg') no-repeat center center; 
+        font-size: 1.6em;
+        text-align: center;
+        padding-top: 38%;
+        transition: opacity 3s;
+        will-change: opacity;
+    }
+    .restart-message.faded-out {
+        opacity: 0;
+    }
+    .restart-button {
+        margin: 10px auto;
+        font-family: "Arial Black", Gadget, sans-serif;
+        font-size: 20px;
+        padding: 15px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: #FFF;
+        box-shadow: 0 0 20px #eee;
+        border-radius: 10px;
+        width: 200px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        cursor: pointer;
+        display: inline-block;
+        border-radius: 25px;
+        transition: opacity 3s;
+        will-change: opacity;
+    }
+    .restart-button.faded-out {
+        opacity: 0;
+    }
+    .restart-button:hover{
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        margin: 10px auto;
+    }
+    .restart-button {
+        background-image: linear-gradient(to right, #2BC0E4 0%, #fc36c0 51%, #6ccbe8 100%);
+    }
+    .restart-button:hover {
+        background-position: right center; 
+    }
+    .stand-out-line {
+        padding: 5px 0;
+        text-align: center;
+    }
+    .flag {
+        display: flex;
+        flex-direction: column;
+    }
+    .lang-button {
+        background-color: #49cb94;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 10px;
+        color: white;
+        font-size: 1.1em;
+        font-weight: 700;
+        border: 2px solid #ffffffcc;
+        margin-bottom: 4px;
+        z-index: 2;
+    }
+    .active {
+        background-color: #5191bbe3;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 10px;
+        color: white;
+        font-size: 1.1em;
+        font-weight: 700;
+        border: 2px solid #ffffffcc;
+        margin-bottom: 4px;
+    }
+    .cards {
+        text-align: center;
+    }
+  }
+
+  /* Button Styles for "SHOW THE MAGIC BALL" */
+.mg-b {
+    background-color: #1366f7; /* Orange color */
+    color: white; /* White text */
+    padding: 15px 25px; /* Padding for button */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Bold text */
+    text-transform: uppercase; /* Uppercase text */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    margin-top: 20px; /* Space from the previous content */
+    box-shadow: 0 0px 20px rgba(243, 241, 241, 0.2); /* Shadow effect */
+  }
+  
+  /* Button hover effect */
+  .mg-b:hover {
+    background-color: #f224ef; /* Slightly darker orange */
+    transform: translateY(-3px); /* Lift the button slightly */
+  }
+  
+  /* Button active effect (when clicked) */
+  .mg-b:active {
+    background-color: #cc5200; /* Even darker orange when clicked */
+    transform: translateY(1px); /* Push the button down */
+  }
+  
+  .glowing-text {
+    font-size: 3em;
+    color: #fff; /* Text color */
+    text-shadow: 
+        0 0 5px #1a86df, /* First glow (blue) */
+        0 0 10px #1a86df, /* Second glow (blue) */
+        0 0 15px #0d59f1, /* Third glow (light blue) */
+        0 0 20px #0d47a1, /* Fourth glow (deep blue) */
+        0 0 25px #187bcd, /* Fifth glow (light blue) */
+        0 0 30px #42a5f5, /* Sixth glow (bright blue) */
+        0 0 35px #1a86df; /* Seventh glow (blue) */
+    animation: glowing 1.5s ease-in-out infinite; /* Glowing animation */
+}
+
+@keyframes glowing {
+    0% { text-shadow: 0 0 5px #1a86df, 0 0 10px #1a86df, 0 0 15px #0d59f1, 0 0 20px #0d47a1, 0 0 25px #42a5f5, 0 0 30px #1a86df; }
+    50% { text-shadow: 0 0 10px #42a5f5, 0 0 20px #42a5f5, 0 0 30px #0d59f1, 0 0 40px #1a86df, 0 0 50px #1a86df, 0 0 60px #42a5f5; }
+    100% { text-shadow: 0 0 5px #0d47a1, 0 0 10px #1a86df, 0 0 15px #1a86df, 0 0 20px #42a5f5, 0 0 25px #0d59f1, 0 0 30px #1a86df; }
+}
+

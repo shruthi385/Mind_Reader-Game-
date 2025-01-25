@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Finder Game</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('/static/images/whitebg.jpg') no-repeat center center fixed;
+            background-size: cover;     
+            color: #333;      
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Game title styling */
+        h1 {
+            font-size: 3em;
+            color: #101010;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: rgb(1, 1, 1);
+            font-weight: bolder;
+        }
+
+        /* Container for all images in the same row */
+        .image-container-wrapper {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        /* Each image container */
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            grid-template-rows: repeat(2, 150px);
+            gap: 50px;
+            padding: 10px;
+            width: 390px;
+            height: 390px;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Styling for individual images */
+        .image-container .image {
+            width: 190px;
+            height: 190px;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover effect on images */
+        .image-container .image:hover {
+            transform: scale(1.1);
+        }
+
+        /* Color classes for each container */
+        .blue { background-color: rgb(22, 178, 230); }
+        .pink { background-color: rgb(236, 120, 226); }
+        .yellow { background-color: rgb(234, 234, 39); }
+        .green { background-color: rgb(49, 245, 49); }
+
+        /* Button container to make buttons appear in a row */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Button styling */
+        button {
+            padding: 20px 40px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            background-color: #f9f6f9;
+            color: rgb(7, 7, 7);
+            font-weight: bolder;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 0 10px rgb(22, 22, 216);
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: #f0f3f3;
+            transform: scale(1.1);
+        }
+
+        /* Button active effect */
+        button:active {
+            transform: scale(0.9);
+        }
+
+        /* Button focus effect */
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Optional Game Start Button styling (if needed) */
+        .start-game-button {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            background-color: #32cd32;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .start-game-button:hover {
+            background-color: #228b22;
+        }
+    </style>
+</head>
+<body>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="/games" style="font-size: 40px; background-color: white;" >👈Back</a>
+            </li>
+        </ul>
+    </div>
+    <h1>Image Finder Game</h1>
+    <p>Choose a color based on the images you see below. Ready to play?</p>
+
+    <form method="POST" action="/next">
+        <div class="image-container-wrapper">
+            {% for color, imgs in images.items() %}
+                <div class="image-container {{ color }}">
+                    <img src="{{ url_for('static', filename=imgs[0]) }}" alt="{{ color }}" class="image">
+                    <img src="{{ url_for('static', filename=imgs[1]) }}" alt="{{ color }}" class="image">
+                    <img src="{{ url_for('static', filename=imgs[2]) }}" alt="{{ color }}" class="image">
+                    <img src="{{ url_for('static', filename=imgs[3]) }}" alt="{{ color }}" class="image">
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Place all buttons here below the image containers -->
+        <div class="button-container">
+            {% for color, _ in images.items() %}
+                <button type="submit" name="color" value="{{ color }}"> {{ color }}</button>
+            {% endfor %}
+        </div>
+    </form>
+</body>
+</html>
